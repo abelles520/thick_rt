@@ -1,0 +1,8 @@
+# ignore image files 
+*.png
+
+# ignore complied python modules
+*.pyc
+
+# python egg metadata, regenerate from source files by setuptools
+/*.egg-info
