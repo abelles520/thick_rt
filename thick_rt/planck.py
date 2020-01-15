@@ -6,6 +6,7 @@
 # This script will have functions for the planck function. It is very possible
 # that this script will get renamed at some point.
 
+from constants import *
 
 
 def planck_freq(nu, T):
