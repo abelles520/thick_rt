@@ -1,4 +1,4 @@
-from setuprools import setup
+from setuptools import setup
 
 setup(name='thick_rt',
       version='0.1',
