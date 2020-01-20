@@ -6,6 +6,7 @@
 
 import numpy as np
 from thick_rt import planck
+from thick_rt.integrate import trapezoidal
 import matplotlib.pyplot as plt
 
 plt.style.use('classic')
@@ -51,3 +52,17 @@ plt.ylabel(r'Specific Intensity (erg/s/sr/cm$^2$/Hz)')
 plt.xlim([0.1, 12])
 plt.legend(loc=3)
 plt.savefig('hw2_problem2_loglog.png', dpi=300)
+
+
+# problem 3 integrating the Planck function
+
+# for T=7,500 K
+
+print("Integrating Planck function for T=7,500 K")
+print(r"Over the range $0 < \tilde{\nu} < \infty$")
+
+tmp_func = lambda x: planck.planck_wavenum(x, 7500)
+
+ans = trapezoidal(tmp_func, 1e-5, 5e2, 10000)
+
+print("Answer:", ans, r"erg/s/sr/cm$^2&/Hz/$\mu$m")
