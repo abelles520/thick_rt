@@ -6,6 +6,7 @@
 
 import numpy as np
 from thick_rt import planck
+from thick_rt.constants import *
 from thick_rt.integrate import trapezoidal
 import matplotlib.pyplot as plt
 
@@ -63,6 +64,12 @@ print(r"Over the range $0 < \tilde{\nu} < \infty$")
 
 tmp_func = lambda x: planck.planck_wavenum(x, 7500)
 
-ans = trapezoidal(tmp_func, 1e-5, 5e2, 10000)
+ans = trapezoidal(tmp_func, 2e-4, 1e2, 1000)
 
 print("Answer:", ans, r"erg/s/sr/cm$^2&/Hz/$\mu$m")
+
+analytic = (2*np.pi**4*BOLTZMANN_ERG**4)/(15*SPEEDOFLIGHT**2*PLANCK_ERG**3)*(7500**4)/(2.998e14)
+
+print('Analytic answer:', analytic)
+
+print('Percent error:', (ans-analytic)/analytic*100)
