@@ -10,3 +10,6 @@ is laid out as follows:
  * scripts
    * this directory contains files named after assignments where the functions written in thick_rt will be imported to plot, etc. 
  
+To install:
+> `pip install -e .`
+from the directory containing the `setup.py` file.
