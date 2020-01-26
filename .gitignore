@@ -1,5 +1,6 @@
 # ignore image files 
 *.png
+*.eps
 
 # ignore complied python modules
 *.pyc
