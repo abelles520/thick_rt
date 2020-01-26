@@ -1,0 +1,14 @@
+font.size                : 14
+lines.linewidth          : 2
+lines.linestyle          : -
+axes.grid                : True
+grid.linestyle           : :
+figure.autolayout        : True
+savefig.bbox             : tight
+axes.formatter.useoffset : False
+axes.titlesize           : 18
+lines.markersize         : 8
+xticks.labelsize         : medium
+yticks.labelsize         : medium
+
+
