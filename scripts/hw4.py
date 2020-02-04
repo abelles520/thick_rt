@@ -38,6 +38,7 @@ print("Integral of E3:", e3)
 
 # part (c) determining bounds and sampling
 
+'''
 lower = [10**(-x) for x in range(1, 30)]
 upper = [i for i in range(1, 100)]
 sampling = [i for i in range(100,100000,100)]
@@ -49,37 +50,38 @@ e1_upper_array = [trapezoidal(lambda x: sc.expn(1, x), 1e-9, i, 100000) for i in
 e1_sampling =  [trapezoidal(lambda x: sc.expn(1, x), 1e-9, 9, i) for i in sampling]
 
 
-plt.plot(lower, e1_lower_array, 'b-', label=r'Exp$_1$')
-plt.hlines(1, min(lower), max(lower), color='r', linestyle='-')
+plt.plot(lower, e1_lower_array, 'b-', label=r'$E_1$')
+plt.hlines(1, min(lower), max(lower), color='r', linestyle='-', label='Analytic')
 plt.xlabel('Lower limit')
 plt.ylabel('Integration value')
-plt.title('E1 lower limit')
+plt.title(r'$E_1$ lower limit')
 plt.legend()
 plt.xscale('log')
 plt.yscale('log')
 plt.savefig('e1_lower_bounds.eps')
 
 plt.clf()
-plt.plot(upper, e1_upper_array, 'b-', label=r'Exp$_1$')
-plt.hlines(1, min(upper), max(upper), color='r', linestyle='-')
+plt.plot(upper, e1_upper_array, 'b-', label=r'$E_1$')
+plt.hlines(1, min(upper), max(upper), color='r', linestyle='-', label='Analytic')
 plt.xlabel('upper limit')
 plt.ylabel('Integration value')
-plt.title('E1 Upper limit')
+plt.title(r'$E_1$ Upper limit')
 plt.legend()
 plt.xscale('log')
 plt.yscale('log')
 plt.savefig('e1_upper_bounds.eps')
 
 plt.clf()
-plt.plot(sampling, e1_sampling, 'b-', label=r'Exp$_1$')
-plt.hlines(1, min(sampling), max(sampling), color='r', linestyle='-')
+plt.plot(sampling, e1_sampling, 'b-', label=r'$E_1$')
+plt.hlines(1, min(sampling), max(sampling), color='r', linestyle='-', label='Analytic')
 plt.xlabel('Sampling')
 plt.ylabel('Integration value')
-plt.title('E1 Sampling')
+plt.title(r'$E_1$ Sampling')
 plt.legend()
 plt.xscale('log')
 plt.yscale('log')
 plt.savefig('e1_sampling.eps')
+'''
 
 # calculate final values and percent error
 #(analytic-numerical)/analytic
@@ -99,3 +101,11 @@ e3_final = trapezoidal(lambda x: sc.expn(3, x), 0, 10, 100000)
 
 print("Integral of E3:", e3_final)
 print('Percent error:', ((1/3)-e3_final)/(1/3))
+
+
+# logarithmically spaced trapezoids
+
+e1_log_final = trapezoidal(lambda x: sc.expn(1, np.exp(x))*np.exp(x), np.log(1e-20), np.log(1e50), 100000)
+
+print("\n\n Log Integral of E1:", e1_log_final)
+print('Percent error (log):', (1-e1_log_final)/1)
