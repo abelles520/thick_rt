@@ -5,7 +5,7 @@
 import numpy as np
 import scipy.special as sc
 import matplotlib.pyplot as plt
-from thick_rt.integrate import trapezoidal
+from thick_rt.integrate import trapezoidal, trap_log
 
 plt.style.use('atmospheres.mplstyle')
 
@@ -105,7 +105,11 @@ print('Percent error:', ((1/3)-e3_final)/(1/3))
 
 # logarithmically spaced trapezoids
 
-e1_log_final = trapezoidal(lambda x: sc.expn(1, np.exp(x))*np.exp(x), np.log(1e-20), np.log(1e50), 100000)
+e1_log_final = trap_log(lambda x: sc.expn(1, x), 1e-30, 1000, 100000)
 
 print("\n\n Log Integral of E1:", e1_log_final)
 print('Percent error (log):', (1-e1_log_final)/1)
+
+
+# problem 8
+
