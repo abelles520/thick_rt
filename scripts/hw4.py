@@ -6,6 +6,7 @@ import numpy as np
 import scipy.special as sc
 import matplotlib.pyplot as plt
 from thick_rt.integrate import trapezoidal, trap_log
+from thick_rt.moments import *
 
 plt.style.use('atmospheres.mplstyle')
 
@@ -112,4 +113,24 @@ print('Percent error (log):', (1-e1_log_final)/1)
 
 
 # problem 8
+
+taus = [i for i in np.linspace(1e-9, 100, 10000)]
+
+a_array = [i for i in np.linspace(-1,1,100)]
+
+H_src_array = [H_0_src(quadratic_source, [1,1,i], taus) for i in a_array]
+quad_src_array = [1/4*quadratic_source(2/3, [1,1,i]) for i in a_array]
+H_mu_array = [H_0_mu(quadratic_source, [1,1,i]) for i in a_array]
+
+# make plot of H_src, H_mu, and src=I+ for a variety of a values.
+
+plt.figure(figsize=(10,8))
+plt.plot(a_array, H_src_array, 'b-', label='H from source function')
+plt.plot(a_array, quad_src_array, 'g-', label='Quadratic source function')
+plt.plot(a_array, H_mu_array, 'k-', label='H from mu integral')
+plt.xlabel(r'$a_2$ value')
+plt.ylabel('Intensity')
+plt.legend()
+plt.savefig('emergent_H_plots.eps')
+
 
