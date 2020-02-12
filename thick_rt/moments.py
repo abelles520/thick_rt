@@ -65,7 +65,7 @@ def eddington_flux_0_grey(Teff, nu):
 
     min_tau = 1e-10
     max_tau = 20
-    sampling = 10000
+    sampling = 2000
     
     return 0.5*trap_log(lambda t: planck_freq(nu, Teff*(0.5+ 3/4*t)**(1/4))*sc.expn(2, t), min_tau,
                         max_tau, sampling)
