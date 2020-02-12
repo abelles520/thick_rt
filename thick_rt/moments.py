@@ -7,6 +7,7 @@
 import numpy as np
 import scipy.special as sc
 from .integrate import *
+from .planck import *
 
 def linear_source(tau, a):
     """
@@ -48,3 +49,23 @@ def H_0_mu(src_func, a_array):
     """
 
     return 0.5*trapezoidal(lambda mu: src_func(mu, a_array)*mu, 0, 1, 10000)
+
+
+def eddington_flux_0_grey(Teff, nu):
+    """
+    Calculate the emergent Eddington flux, curly F, under the grey approximation
+    This function is similar to the H_0_mu function except the source function
+    is the planck function at a given Teff.
+
+    Based on the given Teff, the emergent eddington flux is calculated at the
+    given frequency.
+
+    curly F is returned in units of intensity (ergs/s/cm^2/Hz) 
+    """
+
+    min_tau = 1e-10
+    max_tau = 20
+    sampling = 10000
+    
+    return 0.5*trap_log(lambda t: planck_freq(nu, Teff*(0.5+ 3/4*t)**(1/4))*sc.expn(2, t), min_tau,
+                        max_tau, sampling)
