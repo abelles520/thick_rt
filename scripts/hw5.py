@@ -10,7 +10,6 @@ from thick_rt.moments import *
 
 plt.style.use('atmospheres.mplstyle')
 
-
 # Problem 9
 
 # part b
@@ -26,17 +25,17 @@ freq_array = 3e18/wave_array
 
 Teff = 8700  # in K
 
-curly_F0 = [eddington_flux_0_grey(Teff, i) for i in freq_array]
+curly_F0 = [4*np.pi*eddington_flux_0_grey(Teff, i) for i in freq_array]
 
-EB_approx = [0.25*planck_freq(i, Teff) for i in freq_array]
+EB_approx = [np.pi*planck_freq(i, Teff) for i in freq_array]
 
-plt.plot(wavenum_array, curly_F0, 'b-', label=r"$\mathcal{F}_{\nu}(0)/4\pi$")
+plt.plot(wavenum_array, curly_F0, 'b-', label=r"$\mathcal{F}_{\nu}(0)$")
 plt.plot(wavenum_array, EB_approx, 'r-', label=r"E-B approx.")
 plt.xlabel(r'Wavenumber ($\mu$m$^{-1}$)')
 plt.ylabel(r'Intensity (erg/s/cm$^2$/Hz)')
 #plt.xscale('log')
 plt.yscale('log')
-plt.ylim([10**(-10), 10**(-4)])
+plt.ylim([10**(-9), 10**(-3)])
 plt.legend()
 plt.show()
 
@@ -72,7 +71,15 @@ for freq in freq_array:
 plt.clf()
 plt.plot(wavenum_array, derivative_array, 'b-', label=r'$\frac{d^2S_\nu}{d\tau^2}$')
 plt.plot(wavenum_array, error_array, 'r-', label='Difference')
+plt.plot(wavenum_array, np.array(error_array)*6/5, 'k--', label=r'6/5 $(\mathcal{F}_{\nu}(0)-\pi B_{\nu}(T_{\rm eff}))$')
 plt.xlabel(r'Wavenumber ($\mu$m$^{-1}$)')
 plt.ylabel('Error or second derivative')
 plt.legend()
 plt.show()
+
+# offset factor between derivative and difference
+# see picture for true offset factor
+
+print(5/6)
+print(max(error_array)/max(derivative_array))
+
