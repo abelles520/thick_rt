@@ -25,6 +25,7 @@ freq_array = 3e18/wave_array
 
 Teff = 8700  # in K
 
+"""
 curly_F0 = [4*np.pi*eddington_flux_0_grey(Teff, i) for i in freq_array]
 
 EB_approx = [np.pi*planck_freq(i, Teff) for i in freq_array]
@@ -82,4 +83,15 @@ plt.savefig('problem9_d_factor.eps')
 
 print(5/6)
 print(max(error_array)/max(derivative_array))
+"""
 
+# problem 10
+
+tau_array = np.linspace(0.01, 50, 1000)
+
+eddington_flux_array = [curly_F_tau(Teff, t) for t in tau_array]
+
+plt.plot(tau_array, eddington_flux_array, 'b-', label=r"$\mathcal{F}(\tau)$")
+plt.xlabel(r'$\tau$')
+plt.ylabel("Flux (intensity cgs units)")
+plt.show()

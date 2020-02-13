@@ -69,10 +69,11 @@ def eddington_flux_0_grey(Teff, nu):
     return 0.5*trap_log(lambda t: planck_freq(nu, Teff*(0.5+ 3/4*t)**(1/4))*sc.expn(2, t), min_tau,
                         max_tau, sampling)
 
-def curly_F_tau(int_src_func, ):
+def curly_F_tau(Teff, tau):
     """
     Function for problem 10 
-    calculates the eddington flux as a function of tau
-    NOTE this is not a F_\nu, the source function should already be 
-    integrated with respect to frequency
+    calculates the eddington flux at a given tau
+    NOTE this is not a F_\nu, assumes a planckian source function
     """
+
+    return 2*np.pi*(trapezoidal(lambda t: integrated_planck(Teff*(0.5+ 3/4*t)**(1/4))*sc.expn(2, t-tau), tau, 100, 3000)-trapezoidal(lambda t: integrated_planck(Teff*(0.5+ 3/4*t)**(1/4))*sc.expn(2, tau-t), 0, tau, 3000))
