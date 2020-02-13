@@ -37,7 +37,7 @@ plt.ylabel(r'Intensity (erg/s/cm$^2$/Hz)')
 plt.yscale('log')
 plt.ylim([10**(-9), 10**(-3)])
 plt.legend()
-plt.show()
+plt.savefig('problem9_c.eps')
 
 error_array = [(i-j) for i,j in zip(curly_F0, EB_approx)]
 
@@ -46,7 +46,7 @@ plt.plot(wavenum_array, error_array, 'r-', label='Difference')
 plt.xlabel(r'Wavenumber ($\mu$m$^{-1}$)')
 plt.ylabel('Error')
 plt.legend()
-plt.show()
+plt.savefig('problem9_d_difference.eps')
 
 # calculate d2S/dtau^2 at tau=1 for all wavelengths 
 
@@ -71,11 +71,11 @@ for freq in freq_array:
 plt.clf()
 plt.plot(wavenum_array, derivative_array, 'b-', label=r'$\frac{d^2S_\nu}{d\tau^2}$')
 plt.plot(wavenum_array, error_array, 'r-', label='Difference')
-plt.plot(wavenum_array, np.array(error_array)*6/5, 'k--', label=r'6/5 $(\mathcal{F}_{\nu}(0)-\pi B_{\nu}(T_{\rm eff}))$')
+plt.plot(wavenum_array, np.array(error_array)*(np.pi*5/18), 'k--', label=r'5$\pi$/18 $(\mathcal{F}_{\nu}(0)-\pi B_{\nu}(T_{\rm eff}))$')
 plt.xlabel(r'Wavenumber ($\mu$m$^{-1}$)')
-plt.ylabel('Error or second derivative')
+#plt.ylabel('Error or second derivative')
 plt.legend()
-plt.show()
+plt.savefig('problem9_d_factor.eps')
 
 # offset factor between derivative and difference
 # see picture for true offset factor
