@@ -23,7 +23,6 @@ def quadratic_source(tau, a):
 
     return a[0] + a[1]*tau + a[2]*tau**2
 
-
 def H_0_src(src_func, a_array, tau_array):
     """
     given an array of optical depths, the emergent H is calculated
@@ -69,3 +68,11 @@ def eddington_flux_0_grey(Teff, nu):
     
     return 0.5*trap_log(lambda t: planck_freq(nu, Teff*(0.5+ 3/4*t)**(1/4))*sc.expn(2, t), min_tau,
                         max_tau, sampling)
+
+def curly_F_tau(int_src_func, ):
+    """
+    Function for problem 10 
+    calculates the eddington flux as a function of tau
+    NOTE this is not a F_\nu, the source function should already be 
+    integrated with respect to frequency
+    """

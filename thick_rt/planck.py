@@ -53,3 +53,6 @@ def planck_wavenum(wavenum, T):
     # don't forget 1e8 factor to convert speed of light to angstrom/s
 
     return tmp*wave**2/(1e8*SPEEDOFLIGHT)
+
+def integrated_planck(T):
+    return STEFAN_BOLTZMANN/np.pi*T**4
