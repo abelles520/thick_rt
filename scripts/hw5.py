@@ -7,6 +7,7 @@ import scipy.special as sc
 import matplotlib.pyplot as plt
 from thick_rt.integrate import trapezoidal, trap_log
 from thick_rt.moments import *
+from thick_rt.constants import *
 
 plt.style.use('atmospheres.mplstyle')
 
@@ -72,7 +73,7 @@ for freq in freq_array:
 plt.clf()
 plt.plot(wavenum_array, derivative_array, 'b-', label=r'$\frac{d^2S_\nu}{d\tau^2}$')
 plt.plot(wavenum_array, error_array, 'r-', label='Difference')
-plt.plot(wavenum_array, np.array(error_array)*(np.pi*5/18), 'k--', label=r'5$\pi$/18 $(\mathcal{F}_{\nu}(0)-\pi B_{\nu}(T_{\rm eff}))$')
+plt.plot(wavenum_array, np.array(error_array)*(18/(5*np.pi)), 'k--', label=r'18/5$\pi$ $(\mathcal{F}_{\nu}(0)-\pi B_{\nu}(T_{\rm eff}))$')
 plt.xlabel(r'Wavenumber ($\mu$m$^{-1}$)')
 #plt.ylabel('Error or second derivative')
 plt.legend()
@@ -87,11 +88,23 @@ print(max(error_array)/max(derivative_array))
 
 # problem 10
 
-tau_array = np.linspace(0.01, 50, 1000)
+tau_array = np.linspace(0.01, 10, 1000)
 
 eddington_flux_array = [curly_F_tau(Teff, t) for t in tau_array]
 
-plt.plot(tau_array, eddington_flux_array, 'b-', label=r"$\mathcal{F}(\tau)$")
+plt.clf()
+plt.plot(tau_array, eddington_flux_array, 'b-', label='Calculated')
+plt.hlines(STEFAN_BOLTZMANN*Teff**4, np.min(tau_array), np.max(tau_array), color='r', linestyle=":", label='Analytic') 
 plt.xlabel(r'$\tau$')
 plt.ylabel("Flux (intensity cgs units)")
-plt.show()
+plt.yscale('log')
+plt.legend()
+plt.savefig('problem_10.eps')
+
+perc_err_10 = [1-(i/(STEFAN_BOLTZMANN*Teff**4)) for i in eddington_flux_array]
+
+plt.clf()
+plt.plot(tau_array, perc_err_10, 'k-')
+plt.xlabel(r"$\tau$")
+plt.ylabel("Error")
+plt.savefig('problem10_errorplot.eps')
