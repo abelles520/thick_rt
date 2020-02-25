@@ -16,7 +16,7 @@ def partition(ion_name, T):
     """
     if ion_name in ['H+', 'H-']:
         return 1.0
-    df = pd.read_csv('../aux_files/partit.txt', delim_whitespace=True, header=None,  na_values='-')
+    df = pd.read_csv('aux_files/partit.txt', delim_whitespace=True, header=None,  na_values='-')
     df.columns = ['name', 0.2, 0.4, 0.6 ,0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 'log g0']
     
     row = df[df['name']==ion_name]
