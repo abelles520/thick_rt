@@ -17,10 +17,10 @@ def partition(ion_name, T):
     """
     if ion_name in ['H+', 'H-']:
         return 1.0
-    df = pd.read_csv(path+'\partit.txt', delim_whitespace=True, header=None,  na_values='-', encoding='utf-8')
-    df.columns = ['name', 0.2, 0.4, 0.6 ,0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 'log g0']
+    df_part = pd.read_csv(path+'\partit.txt', delim_whitespace=True, header=None,  na_values='-', encoding='utf-8')
+    df_part.columns = ['name', 0.2, 0.4, 0.6 ,0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0, 'log g0']
     
-    row = df[df['name']==ion_name]
+    row = df_part[df_part['name']==ion_name]
     theta_array = np.array([0.2, 0.4, 0.6 ,0.8, 1.0, 1.2, 1.4, 1.6, 1.8, 2.0])
     log_u = row.values[0][1:-1].astype(float)
     theta = 5040/T
