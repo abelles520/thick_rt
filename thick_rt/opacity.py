@@ -97,16 +97,22 @@ def kappa_H_ff(Pe, T, wave):
     return alpha0*wave**3*g_ff*np.log10(np.e)/(2*theta*I)*10**(-theta*I)
 
 
-def kappa_e():
-    return None
+def kappa_e(Pe, Pgas, A_array):
+    """
+    calculate the opacity due to electron scattering using equations
+    8.17
+    """
+    sigma_T = 6.65e-25 #cm^2/electron
+    sum_A = np.sum(A_array)
+    return sigma_T*Pe/(Pgas-Pe)*sum_A
 
 
-def kappa(Pe, T, wave):
+def kappa(Pe, Pgas, T, wave, A_array):
     """
     equation 8.18
     """
     theta = 5040/T
-    return ((kappa_H_bf(Pe, T, wave) + kappa_H_ff(Pe, T, wave) + kappa_Hminus_bf(Pe, T, wave))*(1-10**(-1.2398e4/wave*theta)) + kappa_Hminus_ff(Pe, T, wave))*1/(1+phi('H', T)/Pe)
+    return ((kappa_H_bf(Pe, T, wave) + kappa_H_ff(Pe, T, wave) + kappa_Hminus_bf(Pe, T, wave))*(1-10**(-1.2398e4/wave*theta)) + kappa_Hminus_ff(Pe, T, wave))*1/(1+phi('H', T)/Pe)+kappa_e(Pe, Pgas, A_array)
 
 
 

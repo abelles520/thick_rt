@@ -25,8 +25,9 @@ def partition(ion_name, T):
     log_u = row.values[0][1:-1].astype(float)
     theta = 5040/T
     
-    if theta>2.0 or theta<0.2:
-        print('out of bounds')
-        return np.nan
+    if theta>2.0:
+        # print('out of bounds')
+        return 10**df_part['log g0']
+   
     
     return 10**np.interp(theta, theta_array, log_u)
